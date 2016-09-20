@@ -15,11 +15,11 @@
 # and the PG will write to the console the kind of error and in which line it is
 
 meta:
-	ADDON_NAME = ofxExtremeGpuVideo
-	ADDON_DESCRIPTION = Addon for high performance video format
+	ADDON_NAME = ofxKhronos
+	ADDON_DESCRIPTION = Addon for time synchronize
 	ADDON_AUTHOR = ushiostarfish
-	ADDON_TAGS = "video"
-	ADDON_URL = https://github.com/Ushio/ExtremeGpuVideo.git
+	ADDON_TAGS = "network"
+	ADDON_URL = https://github.com/Ushio/ofxKhronos.git
 
 common:
 	# dependencies with other addons, a list of them separated by spaces
@@ -62,26 +62,7 @@ common:
 
 	# when parsing the file system looking for sources exclude this for all or
 	# a specific platform
-	ADDON_SOURCES_EXCLUDE += libs/lz4/examples/%
-	ADDON_SOURCES_EXCLUDE += libs/lz4/programs/%
-	ADDON_SOURCES_EXCLUDE += libs/ofxImGui/%
-	ADDON_SOURCES_EXCLUDE += libs/squish-1.11/%
-	ADDON_SOURCES_EXCLUDE += libs/squish-1.11_lib/%
-	ADDON_SOURCES_EXCLUDE += libs/tbb44_20150728oss/%
-	ADDON_SOURCES_EXCLUDE += libs/tbb44_20160128oss_win_0/%
 
 	# when parsing the file system looking for include paths exclude this for all or
 	# a specific platform
-	ADDON_INCLUDES_EXCLUDE += libs
-	ADDON_INCLUDES_EXCLUDE += libs/lz4
-	ADDON_INCLUDES_EXCLUDE += libs/lz4/cmake_unofficial%
-	ADDON_INCLUDES_EXCLUDE += libs/lz4/contrib%
-	ADDON_INCLUDES_EXCLUDE += libs/lz4/examples%
-	ADDON_INCLUDES_EXCLUDE += libs/lz4/programs%
-	ADDON_INCLUDES_EXCLUDE += libs/lz4/versionsTest%
-	ADDON_INCLUDES_EXCLUDE += libs/lz4/visual%
-	ADDON_INCLUDES_EXCLUDE += libs/ofxImGui%
-	ADDON_INCLUDES_EXCLUDE += libs/squish-1.11%
-	ADDON_INCLUDES_EXCLUDE += libs/squish-1.11_lib%
-	ADDON_INCLUDES_EXCLUDE += libs/tbb44_20150728oss%
-	ADDON_INCLUDES_EXCLUDE += libs/tbb44_20160128oss_win_0%
+	
