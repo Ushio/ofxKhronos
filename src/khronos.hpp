@@ -3,6 +3,51 @@
 #include <cmath>
 #include <chrono>
 #include <atomic>
+#include <mutex>
+
+struct Clock {
+    double elapsed = 0.0;
+    double scale = 1.0;
+    int64_t check_point_microseconds = 0;
+    
+    double now(int64_t actual_microseconds) const {
+        auto delta_microseconds = actual_microseconds - check_point_microseconds;
+        auto delta = double(delta_microseconds) * 0.001 * 0.001;
+        return elapsed + delta * scale;
+    }
+};
+static_assert(sizeof(Clock) == 8 * 3, "Clock");
+
+#ifdef __APPLE__
+namespace std {
+    template <>
+    struct atomic<Clock> {
+        void operator=(const Clock &value) {
+            std::lock_guard<std::mutex> g(_mutex);
+            _value = value;
+        }
+        Clock load() const {
+            Clock value;
+            {
+                std::lock_guard<std::mutex> g(_mutex);
+                value = _value;
+            }
+            return value;
+        }
+        bool compare_exchange_weak(const Clock &e, const Clock &d) {
+            if (!_mutex.try_lock()) {
+                return false;
+            }
+            _value = d;
+            _mutex.unlock();
+            return true;
+        }
+    private:
+        Clock _value;
+        mutable std::mutex _mutex;
+    };
+}
+#endif
 
 inline std::chrono::high_resolution_clock::time_point std_now() {
 	return std::chrono::high_resolution_clock::now();
@@ -10,18 +55,7 @@ inline std::chrono::high_resolution_clock::time_point std_now() {
 
 class Khronos {
 public:
-	struct Clock {
-		double elapsed = 0.0;
-		double scale = 1.0;
-		int64_t check_point_microseconds = 0;
 
-		double now(int64_t actual_microseconds) const {
-			auto delta_microseconds = actual_microseconds - check_point_microseconds;
-			auto delta = double(delta_microseconds) * 0.001 * 0.001;
-			return elapsed + delta * scale;
-		}
-	};
-	static_assert(sizeof(Clock) == 8 * 3, "Clock");
 
 	Khronos() {
 		_clock = Clock();
