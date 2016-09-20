@@ -34,7 +34,7 @@ void ofApp::draw() {
 	ofDrawCircle(p, 30.0f);
 
 	_imgui.begin();
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, ofVec4f(0.0f, 0.2f, 0.2f, 1.0f));
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, ofVec4f(0.0f, 0.2f, 0.2f, 0.5));
 	ImGui::SetNextWindowPos(ofVec2f(10, 30), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ofVec2f(500, ofGetHeight() - 50), ImGuiSetCond_Once);
 
